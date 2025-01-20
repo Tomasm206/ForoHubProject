@@ -39,7 +39,7 @@ public class AuthController {
 
         // Obtener el usuario autenticado y generar el token
         Usuario usuarioAutenticado = (Usuario) authentication.getPrincipal();
-        var jwtToken = tokenService.verificarToken(usuarioAutenticado);
+        var jwtToken = tokenService.generarToken(usuarioAutenticado);
 
         return ResponseEntity.ok( new DatosJWTToken(jwtToken));
 

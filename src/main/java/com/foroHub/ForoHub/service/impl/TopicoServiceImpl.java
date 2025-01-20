@@ -57,7 +57,7 @@ public class TopicoServiceImpl implements TopicoService {
      * @return
      */
     @Override
-    public org.springframework.data.domain.Page<TopicoRequestDTO> obtenerTodosLosTopicos(Pageable pageable) {
+    public Page<TopicoRequestDTO> obtenerTodosLosTopicos(Pageable pageable) {
         Page<Topico> topicosPaginados = topicoRepository.findAll(pageable);
 
         return topicosPaginados.map(topico -> new TopicoRequestDTO(
@@ -118,3 +118,4 @@ public class TopicoServiceImpl implements TopicoService {
 
 
 }
+
