@@ -24,6 +24,6 @@ public interface CursoRepository extends JpaRepository<Curso, Long> {
      * @param categoria Categoría del curso.
      * @return Un Optional con el curso si existe.
      */
-    Optional<Curso> findByNombreAndCategoria(String nombre, String categoria);
+//    Optional<Curso> findByNombreAndCategoria(String nombre, String categoria);
 
 }

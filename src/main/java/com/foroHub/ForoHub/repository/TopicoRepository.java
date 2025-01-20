@@ -24,6 +24,5 @@ public interface TopicoRepository extends JpaRepository<Topico, Long> {
      * @param status Estado del tópico.
      * @return Lista de tópicos que coinciden con el estado.
      */
-    List<Topico> findByStatus(String status);
 
 }

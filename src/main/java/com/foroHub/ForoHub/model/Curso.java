@@ -7,22 +7,20 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "cursos")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Curso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "El nombre del curso es obligatorio")
+    @NotBlank
     private String nombre;
 
-    @NotBlank(message = "La categoría del curso es obligatoria")
+    @NotBlank
     private String categoria;
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)

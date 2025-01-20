@@ -8,29 +8,29 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
 @Table(name = "topicos")
-@Getter
+@Entity(name = "Topico")
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@EqualsAndHashCode(of = "id")
 public class Topico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "El título no puede estar vacío")
+    @NotBlank
     private String titulo;
 
-    @NotBlank(message = "El mensaje no puede estar vacío")
+    @NotBlank
     private String mensaje;
 
     @NotNull
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaCreacion = LocalDateTime.now();
 
-    private String status;
+    private String status = String.valueOf(true);
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "autor_id", nullable = false)
@@ -43,13 +43,4 @@ public class Topico {
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Respuesta> respuestas;
 
-    @PrePersist
-    public void prePersist() {
-        if (fechaCreacion == null) {
-            fechaCreacion = LocalDateTime.now();
-        }
-        if (status == null) {
-            status = "Activo";
-        }
-    }
 }

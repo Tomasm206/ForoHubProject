@@ -12,7 +12,7 @@ public interface RespuestaRepository extends JpaRepository<Respuesta, Long> {
      *
      * @param solucion Estado de la solución (true/false).
      * @return Número de respuestas que coinciden con el estado de solución.
+     * long countBySolucion(boolean solucion);
      */
-    long countBySolucion(boolean solucion);
 
 }

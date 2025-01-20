@@ -5,18 +5,17 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "usuarios")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @EqualsAndHashCode(of = "id")
 public class Usuario implements UserDetails {
 
@@ -24,15 +23,15 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "El nombre no puede estar vacío")
+    @NotBlank
     private String nombre;
 
-    @NotBlank(message = "El correo electrónico no puede estar vacío")
-    @Email(message = "El correo electrónico debe ser válido")
     @Column(unique = true)
+    @NotBlank
+    @Email
     private String correoElectronico;
 
-    @NotBlank(message = "La contraseña no puede estar vacía")
+    @NotBlank
     private String contrasena;
 
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -40,7 +39,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> "ROLE_USER");
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
@@ -73,3 +72,4 @@ public class Usuario implements UserDetails {
         return true;
     }
 }
+

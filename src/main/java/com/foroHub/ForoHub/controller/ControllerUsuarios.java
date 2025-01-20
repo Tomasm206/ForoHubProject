@@ -1,16 +1,17 @@
 package com.foroHub.ForoHub.controller;
 
 import com.foroHub.ForoHub.model.Usuario;
+import com.foroHub.ForoHub.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/usuario")
 public class ControllerUsuarios {
 
-    private final UsuarioService usuarioService;
+    public final UsuarioService usuarioService;
 
     public ControllerUsuarios(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
@@ -22,9 +23,4 @@ public class ControllerUsuarios {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioCreado);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Long id) {
-        Usuario usuario = usuarioService.obtenerUsuarioPorId(id);
-        return ResponseEntity.ok(usuario);
-    }
 }

@@ -32,5 +32,4 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
      * @param correoElectronico Correo electrónico del usuario.
      * @return true si el usuario existe, de lo contrario false.
      */
-    boolean existsByCorreoElectronico(String correoElectronico);
 }

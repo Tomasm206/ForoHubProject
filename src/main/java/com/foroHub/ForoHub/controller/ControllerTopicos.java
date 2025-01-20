@@ -3,12 +3,16 @@ package com.foroHub.ForoHub.controller;
 import com.foroHub.ForoHub.dto.TopicoRequestDTO;
 import com.foroHub.ForoHub.dto.TopicoResponseDTO;
 import com.foroHub.ForoHub.model.Topico;
+import com.foroHub.ForoHub.service.TopicoService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,22 +32,24 @@ public class ControllerTopicos {
     }
 
     @GetMapping
-    public ResponseEntity<List<TopicoResponseDTO>> obtenerTodosLosTopicos() {
-        List<TopicoResponseDTO> topicos = topicoService.obtenerTodosLosTopicos();
-        return ResponseEntity.ok(topicos);
+    public Page<TopicoRequestDTO> obtenerTodosLosTopicos(
+            @PageableDefault(size = 10, sort = "fechaCreacion", direction = Sort.Direction.ASC) Pageable pageable) {
+        return topicoService.obtenerTodosLosTopicos(pageable);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TopicoResponseDTO> obtenerTopicoPorId(@PathVariable Long id) {
-        TopicoResponseDTO topico = topicoService.obtenerTopicoPorId(id);
-        return ResponseEntity.ok(topico);
+        TopicoResponseDTO respuesta = topicoService.obtenerTopicoPorId(id);
+        return ResponseEntity.ok(respuesta);
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<Topico> actualizarStatusTopico(@PathVariable Long id, @RequestBody Map<String, Boolean> status) {
-        Topico topicoActualizado = topicoService.actualizarStatusTopico(id, status.get("status"));
+    public ResponseEntity<Topico> actualizarTopico(@PathVariable Long id, @RequestBody Map<String, Boolean> status)  {
+        Topico topicoActualizado = topicoService.actualizarTopico(id, status.get ("status"));
         return ResponseEntity.ok(topicoActualizado);
     }
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarTopico(@PathVariable Long id) {
@@ -51,3 +57,4 @@ public class ControllerTopicos {
         return ResponseEntity.noContent().build();
     }
 }
+
